@@ -1,4 +1,6 @@
-getwd()
+
+
+## load required  libraries
 
 install_load <- function (package1, ...)  {   
     packages <- c(package1, ...)
@@ -21,7 +23,7 @@ lapply(req_libraries, install_load); rm(req_libraries)
 
 
 max_ngram <- 4
-#max_percent <- 80
+
 sample_percent <- 5
 min_frequency_count <- 4
 
@@ -46,11 +48,11 @@ news_path <- paste(file_dir, "en_US.news.txt", sep = "/")
 blogs_path <- paste(file_dir, "en_US.blogs.txt", sep = "/")
 
 path_list<- c(twit_path,news_path,blogs_path)
-#plots_dir <- "plots"
+
 
 set.seed(1169)
 
-# helper function to create files: a corpus sample, dev test, and final test
+# helper function to create  sample files
 sample_corpus <- function(file_dir=NULL,path_list =NULL) {
     
     combined_path <- paste(file_dir, "combined.txt", sep = "/")
@@ -108,8 +110,7 @@ combined_sample_path <- sample_corpus(file_dir,path_list)
 
 
 
-# CLEAN TEXTS -----------------------------------------------------
-# load a NLP file
+# helper function to loadf text files
 load_a_file <- function(path = NULL) {
     if (!is.null(path)) {
         if (!file.exists(path))
@@ -123,6 +124,7 @@ load_a_file <- function(path = NULL) {
     }
 }
 
+# profanity file generation
 profanity <- function(){
     
     if(!file.exists("profan1.txt")){
@@ -141,7 +143,6 @@ profanity <- function(){
     profanity_list<-tolower(unique(append(profan1,profan2)))
     
     
-    #saveRDS(word_tokens, tokens_path)
     
     return(profanity_list)
 }
@@ -150,32 +151,24 @@ profanity_list <- profanity()
 
 
 
-
+## loading english dictionary
 data(GradyAugmented)
 
 grady_lower <- tolower(GradyAugmented);rm(GradyAugmented)
 
 
 
-# CREATE CORPORA -----------------------------------------------------
-
-#bos_mark <- "1_b2o7s1" # mark should sort before all legal words for convenience
-#eos_mark <- "1_e2o7s1" # mark should sort before all legal words for convenience
-
-
-
-
-# helper function to make dfms for ngrams
+# helper function to make tokenization file
 make_word_tokens <- function(sample_path = NULL) {
     tokens_path <- gsub("sample\\.txt", "tokens\\.rds", sample_path)
     if (!file.exists(tokens_path) & !is.null(sample_path)) {
         
-        # tokenize sentences
+        # create corpora
         text <- load_a_file(sample_path)
         corpus_data <- corpus(text )
         
         
-        # if senetence based prediciton is desired
+        # if sentence based prediction is desired
         corpus_data<- corpus_reshape(
             corpus_data,
             to ="sentences",
@@ -195,6 +188,7 @@ make_word_tokens <- function(sample_path = NULL) {
             split_hyphens = TRUE,
             remove_url = TRUE
         )
+        # remove profanity and select words present in dictionary
         word_tokens<- tokens_remove(word_tokens, profanity_list) #padding=TRUE
         word_tokens<- tokens_select(word_tokens, grady_lower) #padding = TRUE
     
@@ -210,7 +204,7 @@ tokens_path <- make_word_tokens(combined_sample_path)
 
 tt
 
-
+# helper function to make dfm  file
 make_dfms <- function(tokens_path = NULL, include_dfms = TRUE) {
     dfms_path <- gsub("tokens", "dfms", tokens_path)
     if (!file.exists(dfms_path) & !is.null(tokens_path)) {
@@ -219,9 +213,7 @@ make_dfms <- function(tokens_path = NULL, include_dfms = TRUE) {
         
         tokens_words <- readRDS(tokens_path)
         ngrams_list <- vector("list", max_ngram)
-        
 
-        # 1st insert pair of markers before and after each sentence, cumulatively
         
         for (i in 1:max_ngram) {
             ngrams_list[[i]] <- tokens_ngrams(tokens_words, n = i, concatenator = " ")
@@ -249,7 +241,7 @@ dfms_path <- make_dfms(tokens_path)
 
 
 
-# helper function to display exploratory tables and plots for a corpus
+# helper function to make n-gram frequency table file  
 make_simple_freq_tables <- function( dfms_path = NULL) {
     simple_freqs_path <- gsub("dfms", "simple.freqs", dfms_path)
     if (!file.exists(simple_freqs_path) & !is.null(dfms_path)) {
@@ -283,6 +275,7 @@ simple_freqs_path <- make_simple_freq_tables( dfms_path)
 
 
 
+# helper function to make discount_table file, which will be needed for smoothing
 make_discount_table<- function(simple_freqs_path=NULL){
     discount_table_path <- gsub("simple.freqs", "Freq.discount.factor", simple_freqs_path)
     if (!file.exists(discount_table_path) & !is.null(simple_freqs_path)) {
@@ -318,6 +311,7 @@ make_discount_table<- function(simple_freqs_path=NULL){
 discount_table_path <- make_discount_table(simple_freqs_path)
 
 
+# helper function to modify n-gram frequency table file. these modifications are needed for smoothing
 make_ngram_freq_table <- function(simple_freqs_path=NULL){
     unigram_freq_path <- gsub("simple.freqs", "unigram_freq", simple_freqs_path)
     bigram_freq_path <- gsub("simple.freqs", "bigram_freq", simple_freqs_path)
@@ -368,10 +362,9 @@ make_ngram_freq_table <- function(simple_freqs_path=NULL){
 ngram_freq_path <- make_ngram_freq_table(simple_freqs_path)
 
 
-aa<- readRDS(ngram_freq_path[2])
 
 
-
+# # helper function to calculate unigram pkn and bigram pcont  
 
 unigram_pkn<- function(ngram_freq_path, discount_table_path){
     cat('load data\n')
@@ -435,7 +428,7 @@ unigram_pkn(ngram_freq_path, discount_table_path)
 
 
 
-
+# # helper function to calculate bigram pkn and trigram pcont
 bigram_pkn<- function(ngram_freq_path, discount_table_path){
     
     cat('load data\n')
@@ -508,10 +501,10 @@ bigram_pkn<- function(ngram_freq_path, discount_table_path){
 bigram_pkn(ngram_freq_path, discount_table_path)
 
 
+# # helper function to calculate trigram pkn and quadgram pcont
 trigram_pkn<- function(ngram_freq_path, discount_table_path){
     
     cat('load data\n')
-    #unigram <- readRDS(ngram_freq_path[1])
     bigram <- readRDS(ngram_freq_path[2]) %>% select(feature, pkn,lambda_tri, n_0_word1_word2_0)
     trigram <- readRDS(ngram_freq_path[3])
     quadgram <- readRDS(ngram_freq_path[4])
@@ -594,12 +587,10 @@ trigram_pkn(ngram_freq_path, discount_table_path)
 
 
 
-
+# # helper function to calculate quadgram pkn
 quadgram_pkn<- function(ngram_freq_path, discount_table_path){
     
     cat('load data\n')
-    #unigram <- readRDS(ngram_freq_path[1])
-    #bigram <- readRDS(ngram_freq_path[2])
     trigram <- readRDS(ngram_freq_path[3]) %>% select(feature, pkn,lambda_quad, n_word1_word2_word3_0)
     quadgram <- readRDS(ngram_freq_path[4])
     disc <- readRDS(discount_table_path)
@@ -637,7 +628,7 @@ quadgram_pkn(ngram_freq_path, discount_table_path)
 
 
 
-
+# # helper function to create final n-gram files that will be used for shiny app
 final_data_preperation<- function(file_link){
     final_output_link<- c()
     for (i in 1:length(file_link)){
