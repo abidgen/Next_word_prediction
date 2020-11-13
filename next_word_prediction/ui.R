@@ -51,13 +51,13 @@ shinyUI(navbarPage( theme = shinytheme('superhero'),
                                  h4("This suggestion model uses Katz's 
                                     back-off model where it uses the last three 
                                     words to predict the next word. If no word 
-                                    match is found in the training dataset, 
+                                    match is found in the n-gram dataset, 
                                     it will use last two words and then last 
                                     one word until it finds a suitable match. 
                                     If no match is found, it will suggest most 
                                     frequent words."),
                                  
-                                 h4("The training dataset was created using 'twitter',
+                                 h4("The n-gram dataset was created using 'twitter',
                                     'news', and ' blog' dataset provided by 
                                     coursera-Data science captone course page. 
                                     Five percent data from all datasets were used
@@ -74,8 +74,8 @@ shinyUI(navbarPage( theme = shinytheme('superhero'),
                                  
                                  h3("Intructions"),
                                  
-                                 tags$li(tags$span("After initilizing the app, it will take 
-                                    some to load the training datasets. When the 
+                                 tags$li(tags$span("After initializing the app, it will take 
+                                    some to load the n-gram probability data. When the 
                                     'Suggestion' box and the suggestion table has 
                                     been populated, that will indicate that the 
                                     app is ready.")),

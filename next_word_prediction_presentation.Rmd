@@ -5,43 +5,42 @@ date: "11/13/2020"
 output: ioslides_presentation
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-### Overview
+## Overview
 
-This presentation was generated as a requirement for completion of the coursera course titled "Developing Data Products."
+This presentation was generated as a requirement for completion of the coursera course titled "Data science capstone."
 
-The application (Auto Loan Calculator) was developed using Shiny and can be observed [here](https://abidgen.shinyapps.io/auto_loan_calculator/).
+The application (Auto Loan Calculator) was developed using Shiny and can be observed [here](https://abidgen.shinyapps.io/next_word_prediction/).
 
-Source codes for the presentation (Rmd file) and application (ui.R and server.R) are hosted at [Github](https://github.com/abidgen/Car_loan_calculator).
-
-
-
-## Shiny Application: Auto Loan Calculator
-
-This application calculates monthly payment amount based on the following variable,
-
-- Auto Price
-- Loan Term
-- Yearly Interest rate
-- Down Payment
-- Trade-in Value
-- sales Tax Rate
-- Title, Registration and Other Fees
-
-This application also has the option to include all fees in the loan. 
+Source codes for the presentation (Rmd file) and application (ui.R and server.R) are hosted at [Github](https://github.com/abidgen/Coursera_data_science_capstone_jhu).
 
 
 
-## Instructions
+## Prediction Algorithm 
 
-- This app accepts positive numeric values for input variables in the left sidebar panel. 
-- User needs to input values in the respective boxes and hit "submit" button to initiate calculation. The results are displayed in the main panel. 
-- User needs to enter values for all variables. Keeping them empty will generate error. 
-- If the user wants to do calculations with all fees (including sales tax) in the loan, they have to check the "Include all fees in the loan" box.
+This app predicts next word of a continuous sentence based on previous words.
 
+This suggestion model is based on Katz's back-off model where it uses the last three words to predict the next word. If no match is found in the n-gram data, it will use last two words and then last one word until it finds a suitable match. If no match is found, it will suggest most frequent words.
 
 
-## Application Layout and sample code
+## Data preperation
+The n-gram data was created using 'twitter', 'news', and ' blog' data provided by coursera-Data science captone course page. Five percent sample data from all data were used to build corpora and n-gram frequency tables. 
+
+Here, we generated unigrams to quadgrams, then used 'Kneser-Ney smoothing' technique to determine the probability of each word in the sample corpora in respect to their preceding words in the sample data. 
+
+The code for data cleaning, data preparation, ,n-gram frequency table generation, smoothing and probability calculation are hosted at [Github](https://github.com/abidgen/Coursera_data_science_capstone_jhu). 
+
+
+
+## Instructions and App description
+
+- After initializing the app, it will take some to load the n-gram probability data. When the 'Suggestion' box and the suggestion table has been populated, that will indicate that the app is ready.
+- User needs enter some text in the 'Enter text for prediction' box and the app will automatically suggest top 5 probable next word based on the previous words provided.
+- A table of all the probable words with their probability scores will be generated at the bottom section.
+- 'Reset' button will clear all text already provided and start a new session.
+
+
