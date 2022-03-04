@@ -1,6 +1,8 @@
 
-##### "Next Word Prediction Widget"
+### Next Word Prediction Widget
+
 author: "Abid Al Reza"
+
 date: "11/13/2020"
 
 
