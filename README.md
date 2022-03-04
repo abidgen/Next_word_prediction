@@ -12,7 +12,7 @@
 
 This presentation was generated as a requirement for completion of the coursera course titled "Data science capstone."
 
-The application (Auto Loan Calculator) was developed using Shiny and can be observed [here](https://abidgen.shinyapps.io/next_word_prediction/).
+The application was developed using Shiny and can be observed [here](https://abidgen.shinyapps.io/next_word_prediction_Abid/).
 
 Source codes for the presentation (Rmd file) and application (ui.R and server.R) are hosted at [Github](https://github.com/abidgen/Coursera_data_science_capstone_jhu).
 
@@ -41,6 +41,4 @@ The code for data cleaning, data preparation, ,n-gram frequency table generation
 - A table of all the probable words with their probability scores will be generated at the bottom section.
 - 'Reset' button will clear all text already provided and start a new session.
 
-## Link to the app
 
-https://abidgen.shinyapps.io/next_word_prediction_Abid/
