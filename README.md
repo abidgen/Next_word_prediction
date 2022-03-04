@@ -1,14 +1,10 @@
----
-title: "Next Word Prediction Widget"
+
+##### "Next Word Prediction Widget"
 author: "Abid Al Reza"
 date: "11/13/2020"
-output: ioslides_presentation
----
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+
 
 ## Overview
 
