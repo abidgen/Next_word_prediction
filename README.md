@@ -14,7 +14,7 @@ This presentation was generated as a requirement for completion of the coursera 
 
 The application was developed using Shiny and can be observed [here](https://abidgen.shinyapps.io/next_word_prediction_Abid/).
 
-Source codes for the presentation (Rmd file) and application (ui.R and server.R) are hosted at [Github](https://github.com/abidgen/Coursera_data_science_capstone_jhu).
+Source codes for the application (ui.R and server.R) are hosted at [Github](https://github.com/abidgen/Next_word_prediction/tree/main/next_word_prediction).
 
 
 
@@ -30,8 +30,7 @@ The n-gram data was created using 'twitter', 'news', and ' blog' data provided b
 
 Here, we generated unigrams to quadgrams, then used 'Kneser-Ney smoothing' technique to determine the probability of each word in the sample corpora in respect to their preceding words in the sample data. 
 
-The code for data cleaning, data preparation, ,n-gram frequency table generation, smoothing and probability calculation are hosted at [Github](https://github.com/abidgen/Coursera_data_science_capstone_jhu). 
-
+The code for data cleaning, data preparation, ,n-gram frequency table generation, smoothing and probability calculation are hosted at  [Github](https://github.com/abidgen/Next_word_prediction/blob/main/ngram_pkn_data_preperation.R). 
 
 
 ## Instructions and App description
