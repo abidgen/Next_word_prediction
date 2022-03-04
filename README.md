@@ -1,9 +1,9 @@
 
-### Next Word Prediction Widget
+# Next Word Prediction Widget
 
-author: "Abid Al Reza"
+### author: "Abid Al Reza"
 
-date: "11/13/2020"
+### date: "11/13/2020"
 
 
 
@@ -41,5 +41,6 @@ The code for data cleaning, data preparation, ,n-gram frequency table generation
 - A table of all the probable words with their probability scores will be generated at the bottom section.
 - 'Reset' button will clear all text already provided and start a new session.
 
+## Link to the app
 
 https://abidgen.shinyapps.io/next_word_prediction_Abid/
