@@ -10,7 +10,7 @@
 
 ## Overview
 
-This presentation was generated as a requirement for completion of the coursera course titled "Data science capstone."
+This presentation and app were generated as a requirement for completion of the coursera course titled "Data science capstone."
 
 The application was developed using Shiny and can be observed [here](https://abidgen.shinyapps.io/next_word_prediction_Abid/).
 
